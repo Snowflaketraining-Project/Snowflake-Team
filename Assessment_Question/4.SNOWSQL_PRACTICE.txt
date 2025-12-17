@@ -1,0 +1,156 @@
+
+MODULE 1 — LOGIN & CONNECTION COMMANDS
+1. Write the SnowSQL command to log in using account + username.
+
+2. Write the command to log in and automatically select a role.
+3. Write the command to log in and use a default warehouse.
+4. Write the command to log in and set a default database & schema.
+5. Write the command to log in using a private key instead of a password.
+6. Write the command to check the version of SnowSQL.
+7. Write a SnowSQL command that logs in and runs a single SQL query.
+8. Write a command that logs in and saves the session output to a file.
+
+MODULE 2 — CONNECTION PROFILES
+9. Write the configuration for a connection profile named "dev_conn".
+10. Write the SnowSQL command to use a profile named "test_conn".
+11. Create a connection profile with warehouse, database, and schema included.
+12. Create a profile with default role specified.
+
+MODULE 3 — RUNNING SQL QUERIES
+13. Run an inline SQL query using SnowSQL.
+14. Run multiple SQL statements using a single SnowSQL command.
+15. Execute a SQL file named create_tables.sql using SnowSQL.
+16. Run a SQL file using a connection profile.
+17. Run a query and suppress all output formatting.
+==================================ROSHINI====================================================
+MODULE 14 — OS COMMANDS INSIDE SNOWSQL
+83. Use !system ls inside SnowSQL.
+84. Use !system pwd.
+85. Change directory inside SnowSQL shell.
+86. List files in the current directory.
+
+MODULE 15 — EXPORTING DATA (UNLOAD)
+87. Export data from a table to a stage.
+88. Export only one column to CSV.
+89. Export JSON data using JSON format.
+90. Export with OVERWRITE=TRUE.
+91. Export query results into multiple CSV files (partitioned).
+92. Download exported data via GET.
+
+---SHILPHA---
+
+MODULE 4 — OUTPUT FORMATTING COMMANDS
+18. Write a SnowSQL command to save query output into CSV.
+19. Save query output into JSON format.
+20. Disable header in output.
+21. Change field delimiter to "|".
+22. Set NULL values to appear as the string "EMPTY".
+23. Write a SnowSQL command to produce output in “friendly=false” mode.
+24. Save output to a file called results.txt.
+25. Format the output as tab-separated.
+
+MODULE 5 — PUT & GET COMMANDS
+26. Upload a file called orders.csv to an internal stage @raw_stage.
+27. Upload all CSV files from /data/files/ folder.
+28. Upload files but disable auto compression.
+29. List all files in stage @mystage.
+30. Download all files from stage @logs to a local folder.
+31. Write a PUT command with parallel upload disabled.
+32. Write a GET command that downloads only .json.gz files using a PATTERN.
+
+MODULE 6 — COPY INTO (LOADING DATA)
+33. Load CSV data from a stage into a table using COPY INTO.
+34. Load JSON file into a VARIANT table using COPY INTO.
+35. Load XML data using COPY INTO (file format XML).
+36. Load only files matching a regex pattern ".*2024.*".
+37. Write a COPY command that skips the first 2 header lines.
+38. Write a COPY command that ignores missing columns.
+39. Write a COPY command that loads files only from a subfolder of a stage.
+40. Write a COPY command that validates the file but does not load it.
+41. Reload a file even if Snowflake thinks it's already loaded (FORCE=TRUE).
+
+MODULE 7 — LISTING & REMOVING STAGE FILES
+42. Write a command to list stage files ordered by size.
+43. Remove a single file from stage.
+44. Remove all .csv files from stage.
+45. Remove files larger than 5MB (using PATTERN).
+
+====
+
+MODULE 8 — VARIABLES IN SNOWSQL
+46. Set a variable inside SnowSQL session.
+47. Use a SnowSQL variable in a SQL query.
+48. Use binding variables (-D var=value) in SnowSQL.
+49. Use multiple binding variables in one command.
+50. Write a query using a variable for LIMIT.
+51. Write a SnowSQL command that overrides a variable in a SQL script.
+
+MODULE 9 — JSON LOADING & QUERYING
+52. Write a SnowSQL command to upload JSON files into a stage.
+53. Write a COPY command to load JSON into a table.
+54. Query a VARIANT column to extract a JSON key.
+55. Query an array element inside JSON.
+56. Use LATERAL FLATTEN with JSON.
+57. Load multiple JSON files using wildcard matching.
+58. Validate JSON during load using ON_ERROR.
+
+MODULE 10 — XML LOADING & QUERYING
+59. Upload XML files using PUT command.
+60. Write COPY INTO to load XML into a VARIANT table.
+61. Query XML attribute values.
+62. Query nested XML elements.
+63. Use FLATTEN with XML repeating nodes.
+64. Load XML files that contain multiple nested elements.
+
+MODULE 11 — FILE FORMATS
+65. Create a file format for CSV.
+66. Create a file format for JSON.
+67. Create a file format for XML.
+68. Create a file format with custom delimiter.
+69. Create a file format for tab-separated data.
+70. Create a file format that ignores quotes.
+71. Create a file format that skips blank lines.
+
+MODULE 12 — WORKING WITH STAGES
+72. Create an internal stage using SnowSQL.
+73. Create an external S3 stage.
+74. List all file formats.
+75. List all stages in a database.
+76. Write command to refresh an external stage.
+
+
+========================Kawin======================================
+
+MODULE 13 — AUTOMATION & SCRIPTING
+77. Write a shell script that runs a SnowSQL file.
+78. Write a Windows batch script using SnowSQL.
+79. Write a script that loads CSV files daily.
+80. Write a script that logs errors to logfile.txt.
+81. Write a script that exports data to local machine.
+82. Write a script that uploads → loads → queries → downloads results.
+
+
+
+MODULE 16 — ERROR HANDLING
+93. Write a SnowSQL command that continues even when errors occur.
+94. Write a SnowSQL command that stops on first error.
+95. Show an example of ON_ERROR=SKIP_FILE using COPY.
+96. Write a command that logs error output to a file.
+
+MODULE 17 — ROLES & SECURITY
+97. Write command to switch role from CLI.
+98. Write command to view your current role.
+99. Write command to grant a role access to a warehouse.
+100. Write command to revoke privileges using SnowSQL.
+
+MODULE 18 — ADVANCED PRACTICE
+101. Write a SnowSQL command that loads CSV + JSON + XML into 3 tables.
+102. Write a command that deletes stage files older than 7 days.
+103. Write a script that performs nightly ETL using SnowSQL.
+104. Write a SnowSQL command that imports 100 files in parallel.
+105. Write a SnowSQL command that masks query output.
+106. Write a command that runs SnowSQL with debugging enabled.
+107. Write a command that runs SnowSQL but suppresses all errors.
+108. Write a command to schedule SnowSQL via cron job.
+109. Write a command that unloads data partitioned by a column.
+110. Write a command that runs a query and emails the result.

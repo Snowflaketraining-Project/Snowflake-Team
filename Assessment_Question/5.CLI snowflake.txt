@@ -1,0 +1,60 @@
+Snowflake CLI – Homework / Play Tasks
+1. Basic CLI Usage
+
+Check the Snowflake CLI version.
+
+Test your connection to Snowflake using the CLI.
+
+2. Running Simple SQL
+
+Run a SQL command to show all databases.
+
+Run a SQL command to show all warehouses.
+
+Run a SQL file using the Snowflake CLI.
+
+3. Creating Objects
+
+Create a database using the CLI.
+
+Create a schema inside that database.
+
+Create a table using a SQL file and run it through the CLI.
+
+4. Working With Stages
+
+Upload a small CSV file to an internal stage using the CLI.
+
+List the files inside the stage.
+
+Download the uploaded file back to your computer.
+
+5. Loading and Unloading Data
+
+Load CSV data into a table using COPY INTO via the CLI.
+
+Unload data from a table into a stage.
+
+6. Deploying a Snowflake Project
+
+Initialize a Snowflake project using snow init.
+
+Deploy the project using snow deploy.
+
+7. Query Output Practice
+
+Run a SELECT query and save the results to a CSV file using the CLI.
+
+Try different output formats such as pretty, CSV, and JSON.
+
+8. Playing With Context
+
+Change the warehouse while running a query.
+
+Change the database and schema using CLI options.
+
+9. Troubleshooting and Help
+
+Use the help command to list all available CLI commands.
+
+Run a command in verbose mode to view detailed logs.

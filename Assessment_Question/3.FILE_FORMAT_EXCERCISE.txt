@@ -1,0 +1,126 @@
+SNOWFLAKE PRACTICE EXERCISES — JSON & XML
+
+-------------------------------
+EXERCISE 1 — JSON NORMAL (employees.json)
+-------------------------------
+Dataset (10 records):
+
+[
+  {"id":101,"name":"John Doe","department":"HR","salary":5000},
+  {"id":102,"name":"Jane Smith","department":"Finance","salary":6000},
+  {"id":103,"name":"Michael Brown","department":"IT","salary":5500},
+  {"id":104,"name":"Linda White","department":"Marketing","salary":5200},
+  {"id":105,"name":"James Black","department":"IT","salary":5800},
+  {"id":106,"name":"Emma Green","department":"HR","salary":5100},
+  {"id":107,"name":"Robert King","department":"Finance","salary":6200},
+  {"id":108,"name":"Olivia Scott","department":"Marketing","salary":5300},
+  {"id":109,"name":"William Lee","department":"IT","salary":5600},
+  {"id":110,"name":"Sophia Turner","department":"HR","salary":5000}
+]
+
+Tasks:
+1. Create a table employees_json with a VARIANT column raw.
+2. Upload JSON file to a Snowflake stage.
+3. Load the JSON file into the table using COPY INTO.
+4. Query employee id, name, and department from the JSON column.
+
+-------------------------------
+EXERCISE 2 — JSON NESTED (projects.json)
+-------------------------------
+Dataset (10 records):
+
+[
+  {"id":101,"name":"John Doe","projects":[{"project_name":"Website Redesign","duration":3},{"project_name":"Employee Portal","duration":4}]},
+  {"id":102,"name":"Jane Smith","projects":[{"project_name":"Financial Report","duration":5},{"project_name":"Audit Compliance","duration":2}]},
+  {"id":103,"name":"Michael Brown","projects":[{"project_name":"IT Security","duration":6},{"project_name":"Cloud Migration","duration":8}]},
+  {"id":104,"name":"Linda White","projects":[{"project_name":"Marketing Campaign","duration":3},{"project_name":"Social Media Outreach","duration":2}]},
+  {"id":105,"name":"James Black","projects":[{"project_name":"Mobile App Dev","duration":4},{"project_name":"Server Optimization","duration":5}]},
+  {"id":106,"name":"Emma Green","projects":[{"project_name":"HR Portal","duration":3},{"project_name":"Employee Training","duration":2}]},
+  {"id":107,"name":"Robert King","projects":[{"project_name":"Financial Audit","duration":4},{"project_name":"Budget Planning","duration":3}]},
+  {"id":108,"name":"Olivia Scott","projects":[{"project_name":"Marketing Analytics","duration":3},{"project_name":"Campaign Review","duration":2}]},
+  {"id":109,"name":"William Lee","projects":[{"project_name":"Server Maintenance","duration":5},{"project_name":"Network Upgrade","duration":4}]},
+  {"id":110,"name":"Sophia Turner","projects":[{"project_name":"Employee Onboarding","duration":2},{"project_name":"Benefits Portal","duration":3}]}
+]
+
+Tasks:
+1. Create a table employee_projects_json with VARIANT column raw.
+2. Upload and load JSON file into the table.
+3. Flatten projects array and display employee id, name, project_name, and duration.
+
+-------------------------------
+EXERCISE 3 — XML NORMAL (employees.xml)
+-------------------------------
+Dataset (10 records):
+
+<employees>
+  <employee id="101"><name>John Doe</name><department>HR</department><salary>5000</salary></employee>
+  <employee id="102"><name>Jane Smith</name><department>Finance</department><salary>6000</salary></employee>
+  <employee id="103"><name>Michael Brown</name><department>IT</department><salary>5500</salary></employee>
+  <employee id="104"><name>Linda White</name><department>Marketing</department><salary>5200</salary></employee>
+  <employee id="105"><name>James Black</name><department>IT</department><salary>5800</salary></employee>
+  <employee id="106"><name>Emma Green</name><department>HR</department><salary>5100</salary></employee>
+  <employee id="107"><name>Robert King</name><department>Finance</department><salary>6200</salary></employee>
+  <employee id="108"><name>Olivia Scott</name><department>Marketing</department><salary>5300</salary></employee>
+  <employee id="109"><name>William Lee</name><department>IT</department><salary>5600</salary></employee>
+  <employee id="110"><name>Sophia Turner</name><department>HR</department><salary>5000</salary></employee>
+</employees>
+
+Tasks:
+1. Create table employees_xml with VARIANT column raw.
+2. Upload XML file to a stage.
+3. Load XML into the table using COPY INTO.
+4. Query employee id, name, and department.
+
+-------------------------------
+EXERCISE 4 — XML NESTED (projects.xml)
+-------------------------------
+Dataset (10 records):
+
+<employees>
+  <employee id="101"><name>John Doe</name><projects>
+    <project><project_name>Website Redesign</project_name><duration>3</duration></project>
+    <project><project_name>Employee Portal</project_name><duration>4</duration></project>
+  </projects></employee>
+  <employee id="102"><name>Jane Smith</name><projects>
+    <project><project_name>Financial Report</project_name><duration>5</duration></project>
+    <project><project_name>Audit Compliance</project_name><duration>2</duration></project>
+  </projects></employee>
+  <employee id="103"><name>Michael Brown</name><projects>
+    <project><project_name>IT Security</project_name><duration>6</duration></project>
+    <project><project_name>Cloud Migration</project_name><duration>8</duration></project>
+  </projects></employee>
+  <employee id="104"><name>Linda White</name><projects>
+    <project><project_name>Marketing Campaign</project_name><duration>3</duration></project>
+    <project><project_name>Social Media Outreach</project_name><duration>2</duration></project>
+  </projects></employee>
+  <employee id="105"><name>James Black</name><projects>
+    <project><project_name>Mobile App Dev</project_name><duration>4</duration></project>
+    <project><project_name>Server Optimization</project_name><duration>5</duration></project>
+  </projects></employee>
+  <employee id="106"><name>Emma Green</name><projects>
+    <project><project_name>HR Portal</project_name><duration>3</duration></project>
+    <project><project_name>Employee Training</project_name><duration>2</duration></project>
+  </projects></employee>
+  <employee id="107"><name>Robert King</name><projects>
+    <project><project_name>Financial Audit</project_name><duration>4</duration></project>
+    <project><project_name>Budget Planning</project_name><duration>3</duration></project>
+  </projects></employee>
+  <employee id="108"><name>Olivia Scott</name><projects>
+    <project><project_name>Marketing Analytics</project_name><duration>3</duration></project>
+    <project><project_name>Campaign Review</project_name><duration>2</duration></project>
+  </projects></employee>
+  <employee id="109"><name>William Lee</name><projects>
+    <project><project_name>Server Maintenance</project_name><duration>5</duration></project>
+    <project><project_name>Network Upgrade</project_name><duration>4</duration></project>
+  </projects></employee>
+  <employee id="110"><name>Sophia Turner</name><projects>
+    <project><project_name>Employee Onboarding</project_name><duration>2</duration></project>
+    <project><project_name>Benefits Portal</project_name><duration>3</duration></project>
+  </projects></employee>
+</employees>
+
+Tasks:
+1. Create table employee_projects_xml with VARIANT column raw.
+2. Upload XML file to a stage.
+3. Load XML into the table using COPY INTO.
+4. Flatten projects array and display employee id, name, project_name, and duration.
