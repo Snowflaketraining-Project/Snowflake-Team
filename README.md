@@ -31,6 +31,5 @@ This structure ensures clear ownership, traceability, and ease of review.
 - Snowflake Data Cloud  
 - SQL  
 - Data Warehousing
-- 
 ## Conclusion
 This repository serves as a centralized knowledge base and assessment submission, demonstrating a strong understanding of Snowflake concepts through hands-on implementation and structured documentation.
