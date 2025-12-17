@@ -1,0 +1,284 @@
+create database emp_data;
+use database emp_data;
+
+create schema emp_set;
+use schema emp_set;
+
+create or replace table employees(
+    emp_id int primary key,
+    name varchar(100),
+    dept varchar(100),
+    salary int,
+    hire_date date
+);
+
+insert into employees values(101,'John','IT',65000,'2021-04-01'),
+(102,'Sneha','HR',48000,'2020-11-15'),
+(103,'Michael','SALES',72000,'2022-01-05'),
+(104,'Priya','IT',85000,'2019-07-19'),
+(105,'David','FINANCE',56000,'2021-09-10');
+
+select * from employees;
+
+
+create or replace table sales_transactions(
+    transaction_id int primary key,
+    emp_id int,
+    amount int,
+    transaction_date date,
+    foreign key (emp_id) references employees(emp_id)
+);
+
+insert into sales_transactions values(1,103,900,'2023-01-18'),
+(2,103,1200,'2023-02-11'),
+(3,104,450,'2023-02-28'),
+(4,101,700,'2023-01-09'),
+(5,105,1500,'2023-03-03');
+
+select * from sales_transactions;
+
+
+create or replace table application_log(raw variant);
+
+create or replace table application_log_new (
+    user_name string,
+    device string,
+    ip_address string,
+    action string
+);
+
+insert into application_log_new (user_name, device, ip_address, action)
+select raw:user::string as user_name,
+raw:metadata.device::string as device,
+raw:metadata.ip::string as ip_address,
+f.value::string as action
+from application_log,
+lateral flatten(input => raw:actions) f;
+
+select * from application_log_new;
+
+
+
+SECTION A — SQL (8 questions)
+
+1. Write a query to list the top 3 highest-paid employees.
+  select * from employees 
+  order by salary desc limit 3;
+
+2. Display employees whose salary is above the overall average salary.
+
+select * from employees
+where salary > (select avg(salary) from employees);
+
+3. Show department-wise total salary, sorted by highest total salary first.
+
+select dept,sum(salary) as total_salary
+from employees
+group by dept
+order by total_salary desc;
+
+4. List employees hired between 2020 and 2022.
+
+select *from employees
+where hire_date between '2020-01-01' and '2022-12-31';
+
+5. Find employees who have never performed a transaction
+
+select e.*from employees e
+left join sales_transactions t
+on e.emp_id = t.emp_id
+where t.emp_id is null;
+
+6. Display each employee and the number of transactions they made.
+
+select e.emp_id,e.name,count(t.transaction_id) as total_transactions
+from employees e
+left join sales_transactions t
+on e.emp_id = t.emp_id
+group by e.emp_id, e.name
+order by total_transactions desc;
+
+
+7. Use a window function to rank employees by salary within each department.
+
+select emp_id,name,dept,salary,
+rank() over (partition by dept 
+order by salary desc) as salary_rank
+from employees
+order by dept, salary_rank;
+
+8. Show month-wise total sales for 2023.34
+
+select date_trunc('month', transaction_date) as month,
+sum(amount) as total_sales
+from sales_transactions
+where year(transaction_date) = 2023
+group by month
+order by month;
+
+
+
+
+
+SECTION B — DDL & DML (4 questions)
+
+9. Create a table named PROJECT with:
+PROJECT_ID INT, PROJECT_NAME STRING, START_DATE DATE, EMP_ID INT.
+
+create or replace table project (
+  project_id int,
+  project_name varchar(100)
+  start_date date,
+  emp_id int);
+
+10. Insert 2 rows and update one row to change the project name.
+
+insert into project(PROJECT_ID, PROJECT_NAME, START_DATE, EMP_ID) 
+values (1, 'snowflake', '2025-01-15', 101),
+(2, 'DataWarehouse', '2025-02-10', 102);
+
+11. Delete all projects started before 2021.
+
+Delete from project 
+Where start_date < '2021-01-01';
+
+select * from project;
+
+12. Explain the difference between DELETE, TRUNCATE, and DROP.
+
+  delete - is specific delete the row by rows
+  delete from table_name
+  where condition;
+
+  truncate- structue only there but inside records or not 
+  truncate table project;
+
+  drop- whole records and structue will be dropped
+  drop table employees;
+  undrop table employees;
+
+
+
+SECTION C — SEMI-STRUCTURED DATA (VARIANT, ARRAY, OBJECT) (6 questions)
+
+
+13. Extract all usernames from APPLICATION_LOGS.
+
+select raw:user::string AS user_name
+from application_log;
+
+14. Extract IP address and device from metadata.
+
+select raw:metadata.device::string as device,
+raw:metadata.ip::string as ip_address
+from application_log;
+
+15. Flatten the "actions" array into individual rows.
+
+select raw:user::string as user_name,
+raw:metadata.device::string as device,
+raw:metadata.ip::string as ip_address,
+f.value::string as action
+from application_log,
+lateral flatten(input => raw:actions) f;
+
+16. Count how many users performed the "login" action.
+
+select count(distinct raw:user::string) as login_user_count
+from application_log,
+lateral flatten(input => raw:actions) f
+where f.value::string = 'login';
+
+
+17. Show users who performed "download_report".
+
+select distinct raw:user::string AS user_name
+from application_log,
+lateral flatten(input => raw:actions) f
+where f.value::string = 'download_report';
+
+18. Explain the difference between VARIANT, ARRAY, and OBJECT.
+
+     variant - stores any semi-structured data 
+      eg : whole json
+
+     array - ordered list of items
+      eg : ["login","update"]
+
+     object - key-value JSON structure
+      eg : {"device":"mobile"}
+
+      
+
+SECTION D — VIEWS & SECURE VIEWS (4 questions)
+
+19. Create a view showing EMP_ID, NAME, and SALARY.
+
+Create view Employee_Salary_View as
+select emp_id,name,salary
+from employees;
+
+Select * from Employee_Salary_View;
+
+20. Create a secure view that shows NAME and masked salary (SALARY * 0.8).
+
+Create view Secure_Employee_View as
+Select name,salary * 0.8 as masked_salary
+from employees;
+
+select * from Secure_Employee_View;
+
+21. Explain why secure views are required for data sharing.
+
+Secure views are required for data sharing because they hide underlying tables, logic, and metadata, ensuring that only the final filtered result is shared safely without exposing internal data structures.
+
+22. Create a view showing each employee and their total sales amount.
+
+create view employee_Total as
+select e.emp_id,e.name,sum(s.amount) as total_sales
+from employees e
+join sales_transactions s
+on e.emp_id = s.emp_id
+group by e.emp_id,e.name;
+
+select * from employee_Total;
+
+
+
+SECTION E — INTERMEDIATE LOGIC (2 questions)
+
+23. Using QUALIFY, show the latest transaction per employee.
+
+select * from sales_transactions
+qualify row_number() over(
+partition by emp_id
+order by transaction_date desc) = 1;
+
+24. Identify employees whose salary is within ±10% of their department average salary.
+
+select e.emp_id,e.name,e.dept,e.salary,d.avg_salary
+from employees e
+join (select dept,avg(salary) as avg_salary 
+from employees
+group by dept)d
+on e.dept = d.dept
+where e.salary between d.avg_salary * 0.90 and d.avg_salary * 1.10;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
