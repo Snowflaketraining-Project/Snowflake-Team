@@ -1,0 +1,20 @@
+1. read the usecase _ focuse_area
+
+2. three types of layer like - bronze,sliver,gold layers
+
+3. in **bronze layer** we have load the data by using snowsql command in command prompt _raw data - transitent table use panni load pnnuvom
+
+4. after ui la select query pota ui la data's irukum
+
+5. in **sliver layer** we clean the data by using trim,not-null,mismatch datatype etc....we have to clean the data and move into gold layer
+
+6. in **gold layer** we separted dim and fact table and it move into view for dashboard
+
+7. finally we have to run the query for dashboard through our business_requirement (in kpi we can use dynamic table )
+and view in bar 
+
+
+
+trasient_table
+dyanamic_table
+if we want use merger(stream/tasks)

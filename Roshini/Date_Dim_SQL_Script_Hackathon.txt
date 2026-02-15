@@ -1,0 +1,62 @@
+🧊 FULL DATE DIMENSION (COMPLETE RANGE)
+📅 Date Range
+
+1900-01-01 → 2100-12-31
+(You can reduce/extend if needed)
+
+1️⃣ Create DATE_DIM Table
+CREATE OR REPLACE TABLE DATE_DIM (
+    DATE_KEY         NUMBER(8),     -- YYYYMMDD
+    FULL_DATE        DATE,
+    DAY_OF_MONTH     NUMBER,
+    DAY_NAME         STRING,
+    DAY_OF_WEEK      NUMBER,         -- ISO: 1=Mon, 7=Sun
+    WEEK_OF_YEAR     NUMBER,
+    MONTH_NUMBER     NUMBER,
+    MONTH_NAME       STRING,
+    QUARTER_NUMBER   NUMBER,
+    YEAR_NUMBER      NUMBER,
+    IS_WEEKEND       STRING
+);
+
+2️⃣ Insert ALL Dates (1900–2100)
+INSERT INTO DATE_DIM
+SELECT
+    TO_NUMBER(TO_VARCHAR(d, 'YYYYMMDD'))         AS DATE_KEY,
+    d                                           AS FULL_DATE,
+    DAY(d)                                      AS DAY_OF_MONTH,
+    DAYNAME(d)                                  AS DAY_NAME,
+    DAYOFWEEKISO(d)                             AS DAY_OF_WEEK,
+    WEEKOFYEAR(d)                               AS WEEK_OF_YEAR,
+    MONTH(d)                                    AS MONTH_NUMBER,
+    MONTHNAME(d)                                AS MONTH_NAME,
+    QUARTER(d)                                  AS QUARTER_NUMBER,
+    YEAR(d)                                     AS YEAR_NUMBER,
+    CASE 
+        WHEN DAYOFWEEKISO(d) IN (6,7) 
+        THEN 'Y' ELSE 'N'
+    END                                         AS IS_WEEKEND
+FROM (
+    SELECT DATEADD(
+               DAY, 
+               SEQ4(), 
+               '1900-01-01'::DATE
+           ) AS d
+    FROM TABLE(GENERATOR(ROWCOUNT => 73414))  -- days between 1900 & 2100
+);
+
+3️⃣ Validate
+SELECT 
+    MIN(FULL_DATE) AS START_DATE,
+    MAX(FULL_DATE) AS END_DATE,
+    COUNT(*)       AS TOTAL_DAYS
+FROM DATE_DIM;
+
+
+Expected result:
+
+START_DATE → 1900-01-01
+
+END_DATE → 2100-12-31
+
+TOTAL_DAYS → 73,414
